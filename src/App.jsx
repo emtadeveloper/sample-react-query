@@ -1,8 +1,9 @@
+import { TodoList } from "./TodoList";
 
 function App() {
   return (
     <>
-      <div>sdfdf</div>
+      <TodoList />
     </>
   );
 }
