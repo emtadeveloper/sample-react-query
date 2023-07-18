@@ -1,12 +1,41 @@
-import AddTodo from "./AddTodo";
-import { TodoList } from "./TodoList";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Layout } from "./layout";
+import { QueryClient, QueryClientProvider } from "react-query";
+import Pagination from "./pages/Pagination";
+import Home from "./pages/Home";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      retry: 1,
+    },
+  },
+});
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "/pagination",
+        element: <Pagination />,
+      },
+    ],
+  },
+]);
 
 function App() {
   return (
-    <>
-      {/* <TodoList /> */}
-      <AddTodo />
-    </>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   );
 }
 
